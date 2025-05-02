@@ -1,0 +1,127 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>calculator</title>
+        <style>
+            button{
+                background-color: rgb(253, 228, 182);
+                border: hidden;
+                border-radius: 5px;
+                width: 30px;
+                height: 30px;
+                margin-bottom: 5px;
+                margin-right: 5px;
+                
+            }
+            button:hover{
+                width: 29px;
+                height: 29px;
+            }
+            button:active {
+            transform: scale(0.95);
+        }
+            .clear, .operator{
+                background-color: orange;
+            }
+            .dis{
+                margin-bottom: 5px;
+                width: 140px;
+                height: 20px;
+            }
+            div{
+                border: 1px groove;
+                width: fit-content;
+                padding: 4px;
+                padding-right: 1px;
+                background-color:silver;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div> 
+        <input type="text" class="dis" id="display" disabled><br>
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="operation('+')">+</button>
+        <button class="operator" onclick="operation('-')">-</button>
+        <button class="operator" onclick="operation('/')">/</button><br>
+        <button onclick="number('1')">1</button>
+        <button onclick="number('2')">2</button>
+        <button onclick="number('3')">3</button>
+        <button class="operator" onclick="operation('*')">*</button><br>
+        <button onclick="number('4')">4</button>
+        <button onclick="number('5')">5</button>
+        <button onclick="number('6')">6</button>
+        <button onclick="number('7')">7</button><br>
+        <button onclick="number('8')">8</button>
+        <button onclick="number('9')">9</button>
+        <button onclick="number('0')">0</button>
+        <button class="operator"onclick="calculation()">=</button>
+
+        <script>
+            let op1='';
+            let op2='';
+            let choice='';
+    
+            function number(num){
+                op2 += num;
+                document.getElementById('display').value= `${op1} ${choice} ${op2}`;
+            }
+            function operation(oper){
+                if(op2===''){
+                    return;
+                }
+                if(op1!==''){
+                    calculation();
+                }
+                op1=op2;
+                op2='';
+                choice=oper;
+                document.getElementById('display').value=`${op1} ${choice}`;
+            }
+    
+            function calculation() {
+                if (op1 === '' || op2 === '') return;
+                let result;
+                let prev = parseFloat(op1);
+                let current = parseFloat(op2);
+    
+                switch (choice) {
+                    case '+':
+                        result = prev + current;
+                        break;
+                    case '-':
+                        result = prev - current;
+                        break;
+                    case '*':
+                        result = prev * current;
+                        break;
+                    case '/':
+                        if (current === 0) {
+                            alert("Cannot divide by zero");
+                            return;
+                        }
+                        result = prev / current;
+                        break;
+                    default:
+                        return;
+                    }
+            op2=result.toString();
+            op1='';
+            choice='';
+            document.getElementById('display').value= op2;
+                } 
+        function clearDisplay(){
+                op1='';
+                op2='';
+                choice='';
+                document.getElementById('display').value='0';
+            }
+       
+        </script>
+         </div>
+    </body>
+
+    </html>
